@@ -1,19 +1,20 @@
-package Beesten.g_link.domain;
+package Beesten.g_link.Domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
-import org.springframework.jdbc.support.CustomSQLErrorCodesTranslation;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 
+@Setter
 @Entity
 @Table(name = "users")
-public class User implements UserDetails{
-    //Created Variables
+public class UserProfile implements UserDetails {
+    // Getters and setters
+    // Created Variables
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,17 +25,18 @@ public class User implements UserDetails{
     @NotNull
     private String password;
 
-    //created Constructor
-    public User(String password, String name, String email) {
+    // New fields for profile matching
+    private String interests; // e.g., "Programming, AI, Design"
+    private String skills;    // e.g., "Java, Python, Figma"
+
+    // Created Constructor
+    public UserProfile(String password, String name, String email, String interests, String skills) {
         this.password = password;
         this.name = name;
         this.email = email;
+        this.interests = interests;
+        this.skills = skills;
     }
-    public User(){
-
-    }
-    //Getters and setters
-
 
     public Long getId() {
         return id;
@@ -60,6 +62,31 @@ public class User implements UserDetails{
         this.email = email;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getInterests() {
+        return interests;
+    }
+
+    public void setInterests(String interests) {
+        this.interests = interests;
+    }
+
+    public String getSkills() {
+        return skills;
+    }
+
+    public void setSkills(String skills) {
+        this.skills = skills;
+    }
+
+    public UserProfile() {}
+
+    public UserProfile(String name, String email, String password) {
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -67,34 +94,32 @@ public class User implements UserDetails{
 
     @Override
     public String getPassword() {
-        return "";
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return true;
     }
-    public void setPassword(String password) {
-        this.password = password;
-    }
+
 }

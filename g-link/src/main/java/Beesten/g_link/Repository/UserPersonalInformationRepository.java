@@ -1,6 +1,6 @@
 package Beesten.g_link.Repository;
 
-import Beesten.g_link.domain.UserPersonalInformation;
+import Beesten.g_link.Domain.UserPersonalInformation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
